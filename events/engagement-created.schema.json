@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caseware.internal/events/engagement-created.schema.json",
+  "title": "EngagementCreated",
+  "description": "Emitted by the Engagement Management Service when a new engagement file is created. Consumed to populate the Template Subscribers Index (template_id -> firm_id/engagement_id/region), establishing which engagements must be considered on future template fan-outs.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["engagement_id", "firm_id", "region", "template_id", "template_version"],
+  "properties": {
+    "engagement_id": {
+      "type": "string",
+      "description": "Identifier of the newly created engagement file."
+    },
+    "firm_id": {
+      "type": "string",
+      "description": "Identifier of the firm the engagement belongs to. Used as the partition key for all firm-scoped stores."
+    },
+    "region": {
+      "type": "string",
+      "description": "Data-residency region the firm's engagement data (and this feature's indexes) must stay within, e.g. 'us', 'eu', 'ca'."
+    },
+    "template_id": {
+      "type": "string",
+      "description": "Identifier of the product template used to create the engagement."
+    },
+    "template_version": {
+      "type": "string",
+      "description": "Version of the product template the engagement was created from (becomes the engagement's base_version)."
+    }
+  }
+}

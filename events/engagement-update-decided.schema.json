@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caseware.internal/events/engagement-update-decided.schema.json",
+  "title": "EngagementUpdateDecided",
+  "description": "Emitted by the Engagement Management Service when a user applies or declines a pending template update for an engagement. Consumed to clear reconciled versions from the Pending-Update Index, advance base_version, and append an immutable row to the per-firm Decision History.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["engagement_id", "firm_id", "decision", "from_version", "to_version", "decided_by", "decided_at"],
+  "properties": {
+    "engagement_id": {
+      "type": "string",
+      "description": "Identifier of the engagement the decision applies to."
+    },
+    "firm_id": {
+      "type": "string",
+      "description": "Identifier of the firm the engagement belongs to."
+    },
+    "decision": {
+      "type": "string",
+      "enum": ["applied", "declined"],
+      "description": "Outcome chosen by the user for the full accumulated chain head (all-or-nothing, not per intermediate version)."
+    },
+    "from_version": {
+      "type": "string",
+      "description": "The engagement's base_version at the time of decision (version it was on before this decision)."
+    },
+    "to_version": {
+      "type": "string",
+      "description": "The latest pending version the decision resolves to (chain head at decision time)."
+    },
+    "decided_by": {
+      "type": "string",
+      "description": "Identifier of the authorized user who made the decision."
+    },
+    "decided_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp when the decision was recorded."
+    }
+  }
+}

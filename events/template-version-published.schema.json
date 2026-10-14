@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caseware.internal/events/template-version-published.schema.json",
+  "title": "TemplateVersionPublished",
+  "description": "Emitted by the Product Template Service when a new version of a product template is published. Triggers diff computation and fan-out to subscribed engagements. Carries no firm-identifying or client-confidential data.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["template_id", "version", "published_at"],
+  "properties": {
+    "template_id": {
+      "type": "string",
+      "description": "Identifier of the product template that was updated."
+    },
+    "version": {
+      "type": "string",
+      "description": "The newly published version identifier (monotonically increasing per template_id)."
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp when the version was published."
+    }
+  }
+}
